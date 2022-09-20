@@ -1,13 +1,13 @@
 import React from "react";
-import "./Tickets.css";
+import "../tickets/Tickets.css";
 import { useParams } from "react-router-dom";
 import { useDocument } from "../../hooks/useDocument";
-import TicketSummary from "./TicketSummary";
-import TicketComments from "./TicketComment";
+import RadioSummary from "./RadioSummary";
+//import RadioComments from "./RadioComment";
 
-const Tickets = () => {
+const Radio = () => {
   const { id } = useParams();
-  const { error, document } = useDocument("tickets", id);
+  const { error, document } = useDocument("radios", id);
 
   
 
@@ -21,10 +21,10 @@ const Tickets = () => {
 
   return (
     <div className="project-details">
-      <TicketSummary ticket={document} />
-      <TicketComments ticket={document} />
+      <RadioSummary radio={document} />
+      {/* <RadioComments radio={document} /> */}
     </div>
   );
 };
 
-export default Tickets;
+export default Radio;

@@ -30,4 +30,5 @@ export const useDocument = (collection, id) => {
   }, [collection, id]);
 
   return { document, error };
+ 
 };

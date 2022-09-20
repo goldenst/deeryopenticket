@@ -3,27 +3,28 @@ import { projectFirestore } from "../../firebase/config";
 import "../create/Create.css";
 import { useNavigate, useParams } from "react-router-dom";
 
-const EditTicket = () => {
+const EditRadio = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [vehicle, setVehicle] = useState("");
-  const [concern, setConcern] = useState("");
+  const [sor, setSor] = useState("");
   const [status, setStatus] = useState("");
-  const [tech, setTech] = useState("");
+  const [partOrdered, setPartOrdered] = useState("");
+  const [returnBy, setReturnBy] = useState("");
+  
   const [promiseBy, setPromiseBy] = useState("");
 
   useEffect(() => {
     projectFirestore
-      .collection("tickets")
+      .collection("radios")
       .doc(id)
       .get()
       .then((doc) => {
         if (doc.exists) {
-          setVehicle(vehicle);
-          setConcern(concern);
+          setSor(sor);
+          setPartOrdered(partOrdered);
           setStatus(status);
-          setTech(tech);
+          
           setPromiseBy(promiseBy);
           //set values here ??
 
@@ -36,39 +37,31 @@ const EditTicket = () => {
   }, [id]);
 
   const handelSubmit = () => {
-    projectFirestore.collection("tickets").doc(id).update({
-      vehicle,
-      concern,
+    projectFirestore.collection("radios").doc(id).update({
+      partOrdered,
       status,
-      tech,
       promiseBy,
+      returnBy,
     });
 
-    navigate("/");
+    navigate("/radios");
   };
 
   return (
     <div className="create-form">
-      <h2 className="page-title">Create Ticket</h2>
+      <h2 className="page-title">Edit Radio/SOR</h2>
+      
       <form onSubmit={handelSubmit}>
+      
+        
         <div className="form-group">
-          <label htmlFor="vehicle">Vehicle</label>
-          <input
-            className="form-control"
-            type="text"
-            id="vehicle"
-            value={vehicle}
-            onChange={(e) => setVehicle(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="concern">Concern</label>
+          <label htmlFor="concern">Parts Ordered</label>
           <textarea
             className="form-control"
             type="text"
             id="concern"
-            value={concern}
-            onChange={(e) => setConcern(e.target.value)}
+            value={partOrdered}
+            onChange={(e) => setPartOrdered(e.target.value)}
           ></textarea>
         </div>
         <div className="form-group">
@@ -83,22 +76,10 @@ const EditTicket = () => {
               Please choose one
             </option>
             <option value="New">New</option>
-            <option value="WOA">Waiting for Approval</option>
-            <option value="In Progress">In Progress</option>
-            <option value="WOP">Waiting on Parts</option>
             <option value="Parts Here">All Parts Here</option>
           </select>
         </div>
-        <div className="form-group">
-          <label htmlFor="tech">Tech</label>
-          <input
-            className="form-control"
-            type="text"
-            id="tech"
-            value={tech}
-            onChange={(e) => setTech(e.target.value)}
-          />
-        </div>
+      
         <div className="form-group">
           <label htmlFor="promisedBy">Promised By</label>
           <input
@@ -110,6 +91,16 @@ const EditTicket = () => {
           />
         </div>
         <div className="form-group">
+          <label htmlFor="returnBy">Return By:</label>
+          <input
+            className="form-control"
+            type="date"
+            id="returnBy"
+            value={returnBy}
+            onChange={(e) => setReturnBy(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
           <button className="btn btn-block">Submit</button>
         </div>
       </form>
@@ -117,4 +108,4 @@ const EditTicket = () => {
   );
 };
 
-export default EditTicket;
+export default EditRadio;

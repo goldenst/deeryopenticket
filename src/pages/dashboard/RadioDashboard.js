@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import { useCollection } from "../../hooks/useCollection";
-import TicketList from "../../components/TicketList";
+import RadioList from "../../components/RadioList";
+import SearchBar from "../../components/SearchBar";
 import "./Dashboard.css";
-import TicketFilter from "./TicketFilter";
+import RadioFilter from "./RadioFilter";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
-const Dashboard = () => {
+const RadioDashboard = () => {
   const { user } = useAuthContext();
-  const { documents, error } = useCollection("tickets",['repairOrder', 'desc']);
+  const { documents, error } = useCollection("radios",['sor', 'desc']);
   const [currentFilter, setCurrentFilter] = useState("all");
 
   const changeFilter = (newFilter) => {
     setCurrentFilter(newFilter);
   };
 
-  const ticketFilter = documents ? documents.filter((document) => {
-    
+
+
+  const radioFilter = documents ? documents.filter((document) => {
+
     switch (currentFilter) {
       case "All":
         return true;
@@ -27,36 +30,36 @@ const Dashboard = () => {
           }
         });
         return assignedToMe;
-      case "New":
-      case "In Progress":
-      case "WOA":
-      case "WOP":
-      case "WOT":
+      case "Ordered":
       case "Parts Here":
 
-      //console.log(document.status, currentFilter)
-      return document.status === currentFilter
-      
+        //console.log(document.status, currentFilter)
+        return document.status === currentFilter
+
       default:
         return true
     }
   }) : null
 
-  
+
 
   return (
     <div>
-      <h2 className="page-title">Ticket Dashboard</h2>
+      <h2 className="page-title">Radio Dashboard</h2>
+     
       {error && <p className="error"> {error}</p>}
       {documents && (
-        <TicketFilter
+        
+        <RadioFilter
           currentFilter={currentFilter}
           changeFilter={changeFilter}
         />
+        
       )}
-      {ticketFilter && <TicketList tickets={ticketFilter} />}
+      {radioFilter && <RadioList radios={radioFilter} />}
+      
     </div>
   );
 };
 
-export default Dashboard;
+export default RadioDashboard;

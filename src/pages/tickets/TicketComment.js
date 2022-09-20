@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { timestamp } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useFirestore } from "../../hooks/useFirestore";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import moment from 'moment';
 
 const TicketComments = ({ ticket }) => {
   const { updateDocument, responce } = useFirestore("tickets");
@@ -37,9 +37,7 @@ const TicketComments = ({ ticket }) => {
               </div>
               <div className="comment-date">
                 <p>
-                  {formatDistanceToNow(comment.createdAt.toDate(), {
-                    addSuffix: true,
-                  })}
+                Added: {moment(comment.createdAt.toDate()).format("ddd, MMM Do YY, h:mm a")}
                 </p>
               </div>
               <div className="comment-content">

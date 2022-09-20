@@ -1,16 +1,12 @@
-
+import SearchBar from "../../components/SearchBar";
 
 const filterlist = [
   "All",
-  "New",
-  "In Progress",
-  "WOA",
-  "WOP",
-  "WOT",
+ "Ordered",
   "Parts Here",
 ];
 
-const TicketFilter = ({ currentFilter, changeFilter }) => {
+const RadioFilter = ({ currentFilter, changeFilter }) => {
 
  
 
@@ -30,10 +26,12 @@ const TicketFilter = ({ currentFilter, changeFilter }) => {
           >
             {f}
           </button>
+          
         ))}
+      
       </nav>
     </div>
   );
 };
 
-export default TicketFilter;
+export default RadioFilter;

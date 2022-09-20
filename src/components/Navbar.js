@@ -4,6 +4,7 @@ import "./Navbar.css";
 import Temple from "../assets/temple.svg";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   const { logout, isPending } = useLogout();
@@ -28,6 +29,7 @@ const Navbar = () => {
             </li>
           </>
         )}
+         {' '}
         {user && (
           <li>
             {!isPending && (
@@ -37,6 +39,8 @@ const Navbar = () => {
               </button>
             )}
             {isPending && (
+              
+
               <button className="btn" disabled>
                 {" "}
                 Loging out
